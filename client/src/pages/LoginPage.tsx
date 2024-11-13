@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 import Loading from "../components/Loading";
+import CustomNavbar from "../components/CustomNavbar";
+import BackPage from "../components/BackPage";
 
 const LoginPage = ({
     Data,
@@ -22,6 +24,8 @@ const LoginPage = ({
 
     const handleLogin = () => {
         setisLoading(true);
+        navigate("/problemset");
+
         try {
             axios
                 .post(`${API_URL}/api/accounts/login`, {
@@ -56,24 +60,46 @@ const LoginPage = ({
             console.error("Sign-up failed:", error);
         }
     };
+
+    const CustomNavData : Navbar = {
+        items: [
+            { text: "Student Login", link_path: "/studentlogin" },
+            { text: "Institution Login", link_path: "/institutelogin" }
+        ],
+    };
+
+
     return (
         <>
             <Link to={"/"}>
+
+                <div>
+                    <BackPage />
+                </div>
+
+
                 <div
                     id="logo-cont"
                     className="inline-block relative text-[24px] left-1/2 -translate-x-1/2 font-bold italic mx-auto mt-[12px]"
                 >
                     <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600 px-[1px]">
-                        Poly
+                        PolyCode
                     </span>
-                    <span>Code</span>
+                    <span>Arena</span>
                 </div>
             </Link>
             <div className="min-h-fit w-[300px] mx-auto text-[14px]">
-                <div className="relative bg-black shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div className="relative bg-black shadow-md rounded px-5 pt-6 pb-8 mb-4">
                     <h2 className="text-[34px] font-bold mb-[30px] text-center mt-[60px]">
                         Log In
                     </h2>
+
+                    <div className="text-10px font-semibold whitespace-nowrap mb-4">
+                        <CustomNavbar data={CustomNavData} />
+                    </div>
+
+
+
                     <div className="mb-4">
                         <input
                             className="appearance-none border w-full py-2 px-3 placeholder:text-text_2 focus:placeholder:text-orange-500 bg-black rounded border-borders leading-tight focus:outline-none focus:border-orange-500"

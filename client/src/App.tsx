@@ -12,11 +12,14 @@ import AdminPage from "./pages/AdminPage";
 import MarketplacePage from "./pages/MarketplacePage";
 import ListProductPage from "./pages/ListProductPage";
 import AdminProblemListPage from "./pages/AdminProblemListPage";
+import InstituteSignUpPage from "./pages/InstituteSignUpPage";
+import ResumeUpload from "./pages/ResumeUpload";
+import InstituteLoginPage from "./pages/InstituteLoginPage";
 
 export const TOKEN_STORAGE_KEY = "authToken";
 export const ID_STORAGE_KEY = "id";
-// export const API_URL = "https://fire-code-api.vercel.app";
-export const API_URL = "http://localhost:8080";
+export const API_URL = "https://fire-code-api.vercel.app";
+// export const API_URL = "http://localhost:8080";
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem(TOKEN_STORAGE_KEY));
@@ -152,9 +155,24 @@ function App() {
                     />
 
                     <Route path="/admin" element={<AdminPage />} />
+                    <Route path="/institute" element={<InstituteSignUpPage Data={{
+                                    token: token || "",
+                                    setTokenFunction: changeToken,
+                                    id: id || "",
+                                    setIdFunction: changeId,
+                                }} />} />
+
+<Route path="/institutelogin" element={<InstituteLoginPage Data={{
+                                    token: token || "",
+                                    setTokenFunction: changeToken,
+                                    id: id || "",
+                                    setIdFunction: changeId,
+                                }} />} />
+
 
                     <Route path="/marketplace" element={<MarketplacePage />} />
                     <Route path="/listproduct" element={<ListProductPage />} />
+                    <Route path="/resumeupload" element={<ResumeUpload />} />
 
                     <Route
                         path="/listproblems"

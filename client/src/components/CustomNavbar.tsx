@@ -124,8 +124,8 @@ const CustomNavbar = ({ data }: { data: Navbar }) => {
                                     zIndex: 40,
                                     paddingTop: "14px",
                                     paddingBottom: "14px",
-                                    paddingLeft: "20px",
-                                    paddingRight: "20px",
+                                    paddingLeft: "14px",
+                                    paddingRight: "14px",
                                     cursor: "pointer",
                                     transition: `all ${
                                         data.transition_duration_all ||

@@ -1,8 +1,9 @@
 import axios, { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import MainHeading from "../components/MainHeading";
 import { API_URL } from "../App";
+
 
 const ProfilePage = ({
     token,
@@ -16,7 +17,7 @@ const ProfilePage = ({
     const [user, setUser] = useState<PublicUser>();
     const [verifiedCertain, setVerifiedCertain] = useState<boolean>(false);
     const { name } = useParams();
-
+    const [resumeFile, setResumeFile] = useState<File | null>(null);
     const [eAll, setEAll] = useState<number>();
     const [mAll, setMAll] = useState<number>();
     const [hAll, setHALL] = useState<number>();
@@ -30,6 +31,8 @@ const ProfilePage = ({
     // New state for "Items Bought" section
     const [itemsBought, setItemsBought] = useState<any[]>([]);
     const [selectedItem, setSelectedItem] = useState<number | null>(null);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         axios
@@ -73,12 +76,17 @@ const ProfilePage = ({
             })
             .then(({ data }) => setItemsBought(data))
             .catch((e: AxiosError) => console.log(e));
-    }, []);
+    },);
 
     const handleInviteSubmit = () => {
         console.log("Invite Code Submitted: ", inviteCode);
         // Add your API logic to submit the invite code
     };
+
+    const handleResumeUpload = () => {
+        navigate("/resumeupload");
+    };
+
 
     // Toggle selected item for display
     const toggleItem = (index: number) => {
@@ -110,7 +118,7 @@ const ProfilePage = ({
                     <div className="w-[calc(100%-72px)] h-[260px] sm:h-[160px] bg-black mx-auto mt-[8px] rounded-lg border border-borders">
                         <div id="main" className="flex flex-col sm:flex-row h-fit">
                             <div id="porfile-pic">
-                                <div className="w-[80px] h-[80px] mt-[40px] border border-borders sm:ml-[50px] mx-auto rounded-lg"></div>
+                                <div className="w-[90px] h-[90px] mt-[35px] border border-borders sm:ml-[50px] mx-auto rounded-full"></div>
                             </div>
                             <div className="flex flex-col w-[280px] text-center sm:text-left mx-auto sm:ml-0">
                                 <div
@@ -126,7 +134,21 @@ const ProfilePage = ({
                                     Rank: {user.rank}
                                 </div>
                             </div>
-                            <div className="md:flex hidden flex-row absolute right-[90px]">
+
+                        <div className="flex flex-col items-center mt-10">
+                       
+                        {/* <button
+                            className="bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 transition-all"
+                            onClick={handleResumeUpload}
+                        >
+                            Upload Resume
+                        </button> */}
+                        {/* {uploadMessage && <p className="text-white mt-2">{uploadMessage}</p>} */}
+                    </div>
+
+
+
+                            <div className="md:flex hidden flex-row absolute right-[550px] md:right-[300px]">
                                 <div className="w-[80px] h-[80px] mt-[40px] border border-borders ml-[20px] rounded-lg relative">
                                     <i className="bi bi-x-lg text-borders absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"></i>
                                 </div>
@@ -136,7 +158,21 @@ const ProfilePage = ({
                                 <div className="w-[80px] h-[80px] mt-[40px] border border-borders ml-[20px] rounded-lg relative">
                                     <i className="bi bi-x-lg text-borders absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"></i>
                                 </div>
+
+                               
+
+
                             </div>
+                            
+                            <div className="right-[45px] justify centre mt-[10px] flex flex-col relative ml-[8px] font-bold inline-block  rounded-md text-black text-[18px]">
+                            <button
+                            className="py-2 px-6 mt-[50px] mb-[50px] rounded-lg bg-white text-black py-[6px] px-[16px] rounded-[6px] border border-black hover:bg-[#00000000] hover:border-[#00000000] hover:text-black transition active:bg-red-700 hover:bg-gradient-to-r from-orange-500 to-purple-600"
+                            onClick={handleResumeUpload}>
+                            Upload Resume
+                            </button>
+                            </div>
+                                
+
                         </div>
                     </div>
 

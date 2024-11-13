@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../App";
 import Loading from "../components/Loading";
+import CustomNavbar from "../components/CustomNavbar";
+import BackPage from "../components/BackPage";
 
 const SignupPage = ({
     Data,
@@ -27,6 +29,8 @@ const SignupPage = ({
     const handleSignUp = () => {
         setisLoading(true);
 
+       
+
         try {
             if (password !== confirmPassword) {
                 setMessage(
@@ -49,11 +53,11 @@ const SignupPage = ({
                     document.cookie = `token=${data.token}; path=/; max-age=${
                         7 * 24 * 60 * 60
                     };`;
-                    if (role === "participant") {
-                        navigate("/problemset"); // Navigate to problemset for participants
-                    } else if (role === "admin") {
-                        navigate("/admin"); // Navigate to admin page for admins
-                    }
+                    // if (role === "participant") {
+                    //     navigate("/problemset"); // Navigate to problemset for participants
+                    // } else if (role === "admin") {
+                    //     navigate("/admin"); // Navigate to admin page for admins
+                    // }
                 })
                 .catch((e: AxiosError) => {
                     setisLoading(false);
@@ -70,9 +74,23 @@ const SignupPage = ({
             console.error("Sign-up failed:", error);
         }
     };
+
+    const CustomNavData : Navbar = {
+        items: [
+            { text: "Student SignUp", link_path: "/signup" },
+            { text: "Institution SignUp", link_path: "/institute" }
+        ],
+    };
+
+
     return (
         <>
             <Link to={"/"}>
+
+                <div>
+                    <BackPage />
+                </div>
+
                 <div
                     id="logo-cont"
                     className="inline-block relative text-[24px] left-1/2 -translate-x-1/2 font-bold italic mx-auto mt-[12px]"
@@ -84,10 +102,17 @@ const SignupPage = ({
                 </div>
             </Link>
             <div className="min-h-fit w-[300px] mx-auto text-[14px]">
-                <div className="relative bg-black shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div className="relative bg-black shadow-md rounded px-2 pt-6 pb-8 mb-4">
                     <h2 className="text-[34px] font-bold mb-[30px] text-center mt-[60px]">
                         Sign Up
                     </h2>
+
+                    <div className="text-10px font-semibold whitespace-nowrap mb-4">
+                        <CustomNavbar data={CustomNavData} />
+                    </div>
+
+
+
                     <div className="mb-4">
                         <input
                             className="appearance-none border w-full py-2 px-3 placeholder:text-text_2 focus:placeholder:text-orange-500 bg-black rounded border-borders leading-tight focus:outline-none focus:border-orange-500"
@@ -108,7 +133,7 @@ const SignupPage = ({
                             required={true}
                         />
                     </div>
-                    <div className="mb-4 relative">
+                    {/* <div className="mb-4 relative">
                         <select
                             className="appearance-none border w-full py-2 px-3 placeholder:text-text_2 focus:placeholder:text-orange-500 bg-black rounded border-borders leading-tight focus:outline-none focus:border-orange-500"
                             value={role}
@@ -130,7 +155,7 @@ const SignupPage = ({
                                 <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                             </svg>
                         </div>
-                    </div>
+                    </div> */}
 
                     <div className="mb-4">
                         <input
